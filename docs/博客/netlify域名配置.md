@@ -1,3 +1,16 @@
+---
+title: 使用netlify进行线上部署网站
+date: 2025-5-13 13:20:57
+categories:
+  - 前端
+tags:
+  - netlify
+  - 域名
+createTime: 2025/05/013 13:20:57
+permalink: /article/b3t2xko3/
+---
+
+
 # netlify的域名配置
 
 ## 一.购买域名
