@@ -7,7 +7,7 @@ tags:
   - netlify
   - git
 createTime: 2025/05/08 23:20:57
-permalink: /article/b3t2xko3/
+permalink: /article/2/
 ---
 
 > 该部署方法只适合github 不适合gitee
