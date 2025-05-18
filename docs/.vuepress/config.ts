@@ -19,7 +19,7 @@ export default defineUserConfig({
   theme: plumeTheme({
     notes,
     /* 添加您的部署域名, 有助于 SEO, 生成 sitemap */
-    // hostname: 'https://your_site_url',
+    hostname: 'https://xuansu.xin',
 
     /* 文档仓库配置，用于 editLink */
     // docsRepo: '',
