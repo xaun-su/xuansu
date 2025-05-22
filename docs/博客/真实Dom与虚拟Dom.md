@@ -1,3 +1,13 @@
+---
+title: 虚拟Dom
+date: 2025-5-22
+categories:
+  - 前端
+tags:
+  - JavaScript
+createTime: 2025/05/22 23:20:57
+permalink: /article/15/
+---
 # 一.真实Dom
 
 DOM（Document Object Model）是将整个 HTML 文档的每一个标签元素视为一个对象，这个对象下包含了许多的属性和方法，通过操作这些属性或者调用这些方法实现**对 HTML 的动态更新**，为实现网页特效以及用户交互提供技术支撑。
