@@ -1,5 +1,5 @@
 ---
-title: 使用netlify进行线上部署网站
+title: 使用svg绘制图形并添加流光动画
 date: 2025-5-22
 categories:
   - 前端
