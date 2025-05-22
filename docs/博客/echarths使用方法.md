@@ -7,5 +7,5 @@ tags:
   - echarts
 sticky: 2
 createTime: 2025/05/22 23:20:57
-permalink: /article/9/
+permalink: /article/11/
 ---
