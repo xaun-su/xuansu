@@ -1,5 +1,5 @@
 ---
-title: 使用netlify进行线上部署网站
+title: netlify域名配置
 date: 2025-5-13 13:20:57
 categories:
   - 前端

@@ -8,7 +8,7 @@ tags:
   - wangeditor
   - node.js
 createTime: 2025/05/18 14:15:12
-permalink: /article/asdferw/
+permalink: /article/afcjdf/
 ---
 
 # wangeditor-富文本组件
