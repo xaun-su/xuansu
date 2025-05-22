@@ -1,3 +1,14 @@
+---
+title: 使用netlify进行线上部署网站
+date: 2025-5-22
+categories:
+  - 前端
+tags:
+  - svg
+createTime: 2025/05/22 23:20:57
+permalink: /article/9/
+---
+
 # 使用svg绘制图形并添加流光动画
 
 ## 一.svg是什么?
@@ -163,7 +174,7 @@ svg可以理解为是矢量图的绘画工具
 
 ### 1.功能实现效果
 
-<video src="./img/20250522-0816-01.3153399.mp4"></video>
+![](./img/azk1w-1ewcf.gif)
 
 ### 2.实现逻辑
 
