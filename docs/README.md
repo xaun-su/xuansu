@@ -20,8 +20,8 @@ config:
           text: Github →
           link: https://github.com/xaun-su
 
-        -
-          theme: brand
-          text: 稀土掘金
-          link: https://juejin.cn/user/508454914254364
+        # -
+        #   theme: brand
+        #   text: 稀土掘金
+        #   link: https://juejin.cn/user/508454914254364
 ---
