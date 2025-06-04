@@ -140,6 +140,10 @@ React和Vue的比较可以从多个维度进行：
    - **工作单元**：一个 Fiber 节点也代表一个需要处理的工作单元。React 的渲染过程就是处理这些工作单元。
    - **关键信息**：Fiber 节点上存储了组件类型 (`tag`, `type`)、DOM节点 (`stateNode`)、props 和 state (`pendingProps`, `memoizedProps`, `memoizedState`)、副作用标记 (`effectTag` 用于标记需要在Commit阶段执行的副作用类型（如DOM插入、更新、删除，或生命周期调用)、优先级信息 (`lanes` 决定了该Fiber节点上的更新何时被处理) 以及指向旧 Fiber 节点的指针 (`alternate`，用于双缓冲)。
 
+   > fiber的作用就是为每个react元素添加一个flber节点  这些节点包含着该元素的所有信息 在渲染过程中
+   >
+   > 便于对这些元素或者工作单元进行操作  实现**可中断的增量渲染**和**优先级调度**。
+
 2. **核心目标**：实现**可中断的增量渲染**和**优先级调度**。
 
 3. **双阶段渲染**：Fiber 将渲染过程分为两个主要阶段：
@@ -148,32 +152,64 @@ React和Vue的比较可以从多个维度进行：
      - **任务**：在此阶段，React 会构建新的 Fiber 树（称为 `workInProgress` 树），通过 Diff 算法找出与当前显示的 Fiber 树 (`current` 树) 之间的差异，并标记需要执行的副作用 (DOM 操作、生命周期等)。
      - **特点**：这个阶段的工作可以被分解成小块（每个 Fiber 节点是一个工作单元），可以被**中断**、**恢复**，甚至在某些情况下被**放弃**。此阶段的执行由**调度器 (Scheduler)** 控制。
      - **双缓冲技术**：React 同时维护 `current` 树（已渲染到屏幕的树）和 `workInProgress` 树（正在内存中构建的树）。即使 `workInProgress` 树的构建过程被中断，用户看到的依然是稳定的 `current` 树。
+     
+     > 可以带入虚拟DOM与真实DOM的比对
    - 阶段二：Commit (不可中断)
-     - **任务**：一旦 `workInProgress` 树构建完成，React 进入 Commit 阶段。在此阶段，它会将计算出的所有变更一次性、同步地应用到真实 DOM 上，并执行相关的生命周期方法（如 `componentDidMount`, `componentDidUpdate`）和副作用（如 `useEffect` 的回调）。
+     - **任务**：一旦 `workInProgress` 树构建完成，React 进入 Commit 阶段。在此阶段，它会将计算出的所有变更**一次性、同步**地应用到真实 DOM 上，并执行相关的生命周期方法（如 `componentDidMount`, `componentDidUpdate`）和副作用（如 `useEffect` 的回调）。
        - Before Mutation (捕获快照)：执行如getSnapshotBeforeUpdate这类需要在DOM变更前读取DOM状态的生命周期。
        - Mutation (DOM变更)：执行实际的DOM插入、更新、删除操作。
        - Layout (布局与生命周期/Hooks)：DOM变更后，同步执行componentDidMount、componentDidUpdate以及useLayoutEffect的回调。useEffect的回调则是在此之后异步调度的。
      - **特点**：此阶段**必须同步完成，不可中断**，以保证UI的一致性。
-
+   
    ![image.png](https://p9-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/30d9226abf864690a87c1fd2aadde8f5~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg6L-35L2g5LqM6bmP:q75.awebp?rk3s=f64ab15b&x-expires=1749626124&x-signature=I890IZy6BkDy80lSakglGUABSB0%3D)
 
 ## **三、调度心脏：React Scheduler (调度器)**
+
+> **React Scheduler (调度器)** 在这个比喻中，就是整个生产线的 **中央控制室** 或 **智能调度系统**。它不直接参与具体的生产（协调或渲染），但它决定了：
+>
+> 1. **什么时候** 开始生产？
+> 2. **生产什么**（哪个任务）？
+> 3. **生产多少**（每个任务做多久）？
+> 4. **生产顺序**（哪个任务优先级更高）？
+> 5. **什么时候暂停** 生产，把资源让给更紧急的事情？
+> 6. **什么时候恢复** 生产，从上次暂停的地方继续？
+
+**作用:**Fiber 架构解决了“可中断”的问题（通过将工作拆分成小单元），但 **谁来决定何时中断、何时恢复、以及任务的优先级呢？** 这就是调度器的核心作用。
 
 调度器 (`scheduler`包) 是React并发模式的底层引擎，负责**管理和执行异步任务**，确保高优先级工作（如用户交互）能够及时响应，避免阻塞主线程。
 
 1. **核心目的与职责**：
 
-   - **时间切片 (Time Slicing)**：将长时间运行的任务（主要是React的Render阶段）分割成小的工作单元。调度器会在浏览器每一帧的空闲时间内执行这些单元，如果时间片用完或有更高优先级任务，则会让出主线程。
-   - **优先级调度**：根据任务的紧急程度安排其执行顺序。它不直接定义React应用层面的更新优先级（那是Lanes模型的职责），而是提供一套通用的任务优先级（如 `ImmediatePriority`, `UserBlockingPriority`, `NormalPriority` 等），并根据这些优先级来处理任务队列。
+   - **时间切片 (Time Slicing)**：这是调度器的核心机制。它不会让 React 一次性完成所有工作，而是将工作分解成许多小块（由 Fiber 节点代表），并在每个小块工作完成后，检查当前帧是否还有剩余时间。
+
+     - **帧预算：** 浏览器通常每秒渲染 60 帧（即每帧约 16.6ms）。调度器会利用这个时间预算。
+     - **Yielding (让出控制权)：** 在每个工作单元处理完毕后，调度器会检查当前帧是否即将结束。如果时间不足，或者有更高优先级的任务到来，调度器会暂停当前正在进行的协调工作，将控制权交还给浏览器，让浏览器有机会处理用户输入、动画等。
+     - **Resume (恢复)：** 当浏览器再次空闲时，调度器会从上次暂停的地方继续执行未完成的任务。
+
+     
+
+   - **优先级调度**：根据任务的紧急程度安排其执行顺序。它不直接定义React应用层面的更新优先级（那是Lanes模型的职责），而是提供一套通用的任务优先级
+
+   > 调度器能够为不同的更新任务分配不同的优先级。常见的优先级包括：
+   >
+   > - **Immediate (立即)：** 最高优先级，例如用户输入（打字）。
+   > - **User Blocking (用户阻塞)：** 较高优先级，例如点击按钮后的反馈。
+   > - **Normal (普通)：** 默认优先级，例如数据加载完成后的渲染。
+   > - **Low (低)：** 较低优先级，例如不重要的动画或数据预取。
+   > - **Idle (空闲)：** 最低优先级，例如在浏览器空闲时执行的后台任务。
+   >
+   > 当有多个任务等待执行时，调度器会优先执行优先级高的任务。
 
 2. **核心机制**：
 
    - **任务队列 (Priority Queue)**：内部使用小顶堆（Min Heap）数据结构维护任务。`taskQueue` 存放已到期或立即执行的任务，`timerQueue` 存放需要延迟执行的任务。任务根据其**过期时间 (expirationTime  由Scheduler根据传入的任务优先级和可选的delay计算出来的)** 排序，这个过期时间由任务被调度时的优先级和可选的延迟计算得出。
 
+   > 说白了就是:调度器维护一个或多个任务队列，根据任务的优先级来组织它们。当新的更新请求到来时，它会被添加到相应的优先级队列中。
+
    - 工作循环 (`workLoop`)
 
      ：
-
+   
      - 通过宿主环境提供的异步API（如浏览器的 `MessageChannel`，或 `setTimeout` 作为降级方案）来触发。
      - 循环从`taskQueue`中取出当前最高优先级的任务（即过期时间最早的任务）并执行其回调函数。
      - **时间片检查**：在执行任务单元之间，会检查当前帧是否还有剩余时间（例如，React内部配置的`frameYieldMs`，默认为5ms）。如果时间不足，且当前任务不是必须立即完成的（未过期），则会暂停当前任务的执行，让出主线程。
@@ -181,7 +217,7 @@ React和Vue的比较可以从多个维度进行：
    - 任务的中断与恢复
 
      ：
-
+   
      - 当任务回调被设计为可中断时（如React的Render阶段的`performUnitOfWork`），如果它因为时间片用尽而被中断，它可以返回一个新的函数，代表剩余的工作。
      - 调度器会将这个“剩余工作”作为原任务的延续，重新放入任务队列中，等待下一次调度机会。
 
@@ -189,42 +225,35 @@ React和Vue的比较可以从多个维度进行：
 
 ## **四、React 内部的优先级细化：Lanes 模型**
 
-Lanes模型是React **内部用于表示和管理更新优先级**的核心机制，它取代了旧的 `ExpirationTime` 模型，为并发特性提供了更精细和灵活的控制。
+Lanes模型是React **内部用于表示和管理更新优先级**的核心机制，为并发特性提供了更精细和灵活的控制。
 
 1. **引入背景**：
-
-   - 传统的单一过期时间难以优雅处理并发场景下多种不同来源、不同重要性的更新，特别是需要中断和恢复的场景。Lanes模型通过位操作提供了更强大的优先级表达能力。
-
+- 传统的单一过期时间难以优雅处理并发场景下多种不同来源、不同重要性的更新，特别是需要中断和恢复的场景。Lanes模型通过位操作提供了更强大的优先级表达能力。
 2. **核心概念**：
 
    - **位的集合 (Bitmask)**：Lanes是一个31位的二进制数，每一位（或一组位）代表一个“车道 (Lane)”，对应一种或一类更新的优先级。
+   - **Lanes 的分类：** React 将这些车道划分为不同的组，以代表不同的更新类型和优先级：
 
-   - 不同类型的Lanes
-
-     ：React预定义了多种Lanes，如：
-
-     - `SyncLane`: 同步执行，最高优先级。
-     - `InputContinuousLane`: 用户连续输入，高优先级。
-     - `DefaultLane`: 普通异步更新。
-     - `TransitionLane`: 由`startTransition`标记的过渡更新，较低优先级。
-     - `IdleLane`: 最低优先级，浏览器空闲时执行。
-
+     - **Sync Lanes (同步车道)：** 优先级最高的车道，用于需要立即同步执行的更新，例如 `ReactDOM.render` 的首次渲染。
+     - **Input Lanes (输入车道)：** 优先级较高的车道，用于用户输入相关的更新，例如 `onChange` 事件导致的 `setState`。
+     - **Transition Lanes (过渡车道)：** 中等优先级车道，用于 `useTransition` 标记的更新。这些更新可以被中断，并且不会阻塞用户交互。
+     - **Deferred Lanes (延迟车道)：** 较低优先级车道，用于 `useDeferredValue` 标记的更新。
+     - **Batch Lanes (批处理车道)：** 用于批处理多个更新。
+     - **Idle Lanes (空闲车道)：** 最低优先级车道，用于在浏览器空闲时执行的更新。
    - **Lanes运算**：使用位运算（`|`, `&`, `^`等）来合并Lanes（如一个组件上有多个待处理更新）、检查Lanes（如判断某个Lane是否包含在待处理Lanes中）、选择Lanes等。
-
    - **支持并发特性**：Lanes模型是`startTransition`、`useDeferredValue`等并发特性实现优先级调度的基础。
-
 3. **Lanes模型如何工作**：
 
    1. **为更新分配Lanes**：当React组件发生更新时（如`setState`、`dispatch`），React会根据更新的来源和上下文（例如，是否在事件回调中、是否由`startTransition`包裹）为其分配一个或多个Lanes。
    2. **确定渲染Lanes (`renderLanes`)**：React的协调器（Reconciler）会查看当前Fiber树中所有组件上挂起的Lanes (`pendingLanes`)，并根据一定策略（通常是选择最高优先级的Lanes）确定本次渲染要处理的Lanes集合，称为`renderLanes`。
    3. **调度渲染任务**：React的协调器会将渲染工作（以`renderLanes`为参数）作为一个回调任务，连同根据`renderLanes`转换出的Scheduler优先级，一起**提交给React Scheduler进行调度执行**。比如SyncLane通常会转换为Scheduler的ImmediatePriority，而TransitionLane会转换为较低的Scheduler优先级。
    4. **处理特定Lanes的更新**：在Render阶段，当处理一个Fiber节点的更新队列时，只会处理那些与当前`renderLanes`匹配的更新。
-
 4. **Lanes模型带来的好处**：
-
    - **细粒度优先级控制**：能区分多种更新类型。
    - **并发渲染的基础**：是实现任务中断、优先级调度、批处理和合并的基础。
+   - **中断与恢复的基石：** 当工作被中断时，React 知道当前处理到了哪个 `renderLanes`，以及哪些 Lane 还没有被处理，从而可以在恢复时继续从正确的位置开始。
    - **饿死问题缓解**：低优先级的Lane在等待过久后，其优先级可能会被提升，或者在没有更高优先级任务时，它所占用的Lanes会被包含进renderLanes中得到处理机会。防止低优先级Lanes被无限期推迟。
+   - **支持新的并发特性：** `useTransition` 和 `useDeferredValue` 等 API 正是基于 Lanes 模型实现的。它们允许开发者明确地标记某些更新为“可中断”或“延迟”，从而优化用户体验。
 
 ------
 
@@ -577,7 +606,7 @@ useState本身是同步的，但它触发的状态更新和重新渲染是异步
     2. React创建一个Hook对象，结构大致如下：
 
        ```javascript
-       javascript 体验AI代码助手 代码解读复制代码// Simplified Hook object structure for useState
+       // Simplified Hook object structure for useState
        const hook = {
          memoizedState: initialState, // 存储当前状态值
          queue: { // 一个更新队列，用于存放待处理的更新
@@ -622,7 +651,7 @@ useState本身是同步的，但它触发的状态更新和重新渲染是异步
        ，结构可能如下：
 
        ```javascript
-       javascript 体验AI代码助手 代码解读复制代码// Simplified update object structure
+       // Simplified update object structure
        const update = {
          lane: currentUpdateLane, // 当前更新的优先级 (Lane)
          action: newStateOrFn, // 新的状态值或一个 (prevState => newState) 函数
@@ -705,7 +734,7 @@ useState本身是同步的，但它触发的状态更新和重新渲染是异步
     2. React创建一个Hook对象，结构大致如下：
 
        ```javascript
-       javascript 体验AI代码助手 代码解读复制代码// Simplified Hook object structure for useEffect
+       // Simplified Hook object structure for useEffect
        const hook = {
          tag: HookFlags.Layout | HookFlags.Passive, // 标记是useEffect还是useLayoutEffect, 以及是否有副作用
          create: setupFn,        // 用户传入的effect函数
