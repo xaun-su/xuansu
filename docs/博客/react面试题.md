@@ -1022,7 +1022,7 @@ React HOC (Higher Order Components - 高阶组件) 和 Hooks 是 React 中用于
   ：
 
   ```javascript
-  javascript 体验AI代码助手 代码解读复制代码const MyLazyComponent = React.lazy(() => import('./MyLazyComponent'));
+  const MyLazyComponent = React.lazy(() => import('./MyLazyComponent'));
   // ...
   <React.Suspense fallback={<div>Loading...</div>}>
     <MyLazyComponent />
@@ -1087,7 +1087,7 @@ React HOC (Higher Order Components - 高阶组件) 和 Hooks 是 React 中用于
   ：
 
   ```javascript
-  javascript 体验AI代码助手 代码解读复制代码class ErrorBoundary extends React.Component {
+  class ErrorBoundary extends React.Component {
     constructor(props) {
       super(props);
       this.state = { hasError: false };
@@ -1129,7 +1129,7 @@ React HOC (Higher Order Components - 高阶组件) 和 Hooks 是 React 中用于
   ：
 
   ```javascript
-  javascript 体验AI代码助手 代码解读复制代码const [name, setName] = useState('');
+  const [name, setName] = useState('');
   <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
   ```
 

@@ -34,7 +34,7 @@ JavaScript共有八种数据类型，分别是 Undefined、Null、Boolean、Numb
 **（1）typeof**
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码console.log(typeof 2);               // number
+console.log(typeof 2);               // number
 console.log(typeof true);            // boolean
 console.log(typeof 'str');           // string
 console.log(typeof []);              // object    
@@ -51,7 +51,7 @@ console.log(typeof null);            // object
 `instanceof`可以正确判断对象的类型，**其内部运行机制是判断在其原型链中能否找到该类型的原型**。
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码console.log(2 instanceof Number);                    // false
+console.log(2 instanceof Number);                    // false
 console.log(true instanceof Boolean);                // false 
 console.log('str' instanceof String);                // false 
  
@@ -65,7 +65,7 @@ console.log({} instanceof Object);                   // true
 **（3） constructor**
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码console.log((2).constructor === Number); // true
+console.log((2).constructor === Number); // true
 console.log((true).constructor === Boolean); // true
 console.log(('str').constructor === String); // true
 console.log(([]).constructor === Array); // true
@@ -76,7 +76,7 @@ console.log(({}).constructor === Object); // true
 `constructor`有两个作用，一是判断数据的类型，二是对象实例通过 `constrcutor` 对象访问它的构造函数。需要注意，如果创建一个对象来改变它的原型，`constructor`就不能用来判断数据类型了：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码function Fn(){};
+function Fn(){};
  
 Fn.prototype = new Array();
  
@@ -91,7 +91,7 @@ console.log(f.constructor===Array); // true
 `Object.prototype.toString.call()` 使用 Object 对象的原型方法 toString 来判断数据类型：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码var a = Object.prototype.toString;
+var a = Object.prototype.toString;
  
 console.log(a.call(2));
 console.log(a.call(true));
@@ -176,7 +176,7 @@ typeof null 的结果是Object。
 在 JavaScript 第一个版本中，所有值都存储在 32 位的单元中，每个单元包含一个小的 **类型标签(1-3 bits)** 以及当前要存储值的真实数据。类型标签存储在每个单元的低位中，共有五种数据类型：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码000: object   - 当前存储的数据指向一个对象。
+000: object   - 当前存储的数据指向一个对象。
   1: int      - 当前存储的数据是一个 31 位的有符号整数。
 010: double   - 当前存储的数据指向一个双精度的浮点数。
 100: string   - 当前存储的数据指向一个字符串。
@@ -197,7 +197,7 @@ javascript 体验AI代码助手 代码解读复制代码000: object   - 当前�
 instanceof 运算符用于判断构造函数的 prototype 属性是否出现在对象的原型链中的任何位置。
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码function myInstanceof(left, right) {
+function myInstanceof(left, right) {
   // 获取对象的原型
   let proto = Object.getPrototypeOf(left)
   // 获取构造函数的 prototype 对象
@@ -218,7 +218,7 @@ javascript 体验AI代码助手 代码解读复制代码function myInstanceof(le
 在开发过程中遇到类似这样的问题：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码let n1 = 0.1, n2 = 0.2
+let n1 = 0.1, n2 = 0.2
 console.log(n1 + n2)  // 0.30000000000000004
 ```
 
@@ -301,7 +301,7 @@ javascript
 对于这个问题，一个直接的解决方法就是设置一个误差范围，通常称为“机器精度”。对JavaScript来说，这个值通常为2-52，在ES6中，提供了`Number.EPSILON`属性，而它的值就是2-52，只要判断`0.1+0.2-0.3`是否小于`Number.EPSILON`，如果小于，就可以判断为0.1+0.2 ===0.3
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码function numberepsilon(arg1,arg2){                   
+function numberepsilon(arg1,arg2){                   
   return Math.abs(arg1 - arg2) < Number.EPSILON;        
 }        
 
@@ -378,7 +378,7 @@ NaN 是一个特殊值，它和自身不相等，是唯一一个非自反（自�
 在 JavaScript 中，基本类型是没有属性和方法的，但是为了便于操作基本类型的值，在调用基本类型的属性或方法时 JavaScript 会在后台隐式地将基本类型的值转换为对象，如：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码const a = "abc";
+const a = "abc";
 a.length; // 3
 a.toUpperCase(); // "ABC"
 ```
@@ -388,14 +388,14 @@ a.toUpperCase(); // "ABC"
 JavaScript也可以使用`Object`函数显式地将基本类型转换为包装类型：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码var a = 'abc'
+var a = 'abc'
 Object(a) // String {"abc"}
 ```
 
 也可以使用`valueOf`方法将包装类型倒转成基本类型：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码var a = 'abc'
+var a = 'abc'
 var b = Object(a)
 var c = b.valueOf() // 'abc'
 ```
@@ -403,7 +403,7 @@ var c = b.valueOf() // 'abc'
 看看如下代码会打印出什么：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码var a = new Boolean( false );
+var a = new Boolean( false );
 if (!a) {
 	console.log( "Oops" ); // never runs
 }
@@ -416,7 +416,7 @@ if (!a) {
 首先要介绍`ToPrimitive`方法，这是 JavaScript 中每个值隐含的自带的方法，用来将值 （无论是基本类型值还是对象）转换为基本类型值。如果值为基本类型，则直接返回值本身；如果值为对象，其看起来大概是这样：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码/**
+/**
 * @obj 需要转换的对象
 * @type 期望的结果类型
 */
@@ -445,7 +445,7 @@ ToPrimitive(obj,type)
 总结上面的规则，对于 Date 以外的对象，转换为基本类型的大概规则可以概括为一个函数：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码var objToNumber = value => Number(value.valueOf().toString())
+var objToNumber = value => Number(value.valueOf().toString())
 objToNumber([]) === 0
 objToNumber({}) === NaN
 ```
@@ -457,7 +457,7 @@ objToNumber({}) === NaN
 1. `+`**操作符** `+`操作符的两边有至少一个`string`类型变量时，两边的变量都会被隐式转换为字符串；其他情况下两边的变量都会被转换为数字。
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码1 + '23' // '123'
+1 + '23' // '123'
  1 + false // 1 
  1 + Symbol() // Uncaught TypeError: Cannot convert a Symbol value to a number
  '1' + false // '1false'
@@ -469,7 +469,7 @@ javascript 体验AI代码助手 代码解读复制代码1 + '23' // '123'
 `NaN`也是一个数字
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码1 * '23' // 23
+1 * '23' // 23
  1 * false // 0
  1 / 'aa' // NaN
 ```
@@ -479,7 +479,7 @@ javascript 体验AI代码助手 代码解读复制代码1 * '23' // 23
 操作符两边的值都尽量转成`number`：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码3 == true // false, 3 转为number为3，true转为number为1
+3 == true // false, 3 转为number为3，true转为number为1
 '0' == false //true, '0'转为number为0，false转为number为0
 '0' == 0 // '0'转为number为0
 ```
@@ -489,28 +489,28 @@ javascript 体验AI代码助手 代码解读复制代码3 == true // false, 3 �
 如果两边都是字符串，则比较字母表顺序：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码'ca' < 'bd' // false
+'ca' < 'bd' // false
 'a' < 'b' // true
 ```
 
 其他情况下，转换为数字再比较：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码'12' < 13 // true
+'12' < 13 // true
 false > -1 // true
 ```
 
 以上说的是基本类型的隐式转换，而对象会被`ToPrimitive`转换为基本类型再进行转换：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码var a = {}
+var a = {}
 a > 2 // false
 ```
 
 其对比过程如下：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码a.valueOf() // {}, 上面提到过，ToPrimitive默认type为number，所以先valueOf，结果还是个对象，下一步
+a.valueOf() // {}, 上面提到过，ToPrimitive默认type为number，所以先valueOf，结果还是个对象，下一步
 a.toString() // "[object Object]"，现在是一个字符串了
 Number(a.toString()) // NaN，根据上面 < 和 > 操作符的规则，要转换成数字
 NaN > 2 //false，得出比较结果
@@ -519,7 +519,7 @@ NaN > 2 //false，得出比较结果
 又比如：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码var a = {name:'Jack'}
+var a = {name:'Jack'}
 var b = {age: 18}
 a + b // "[object Object][object Object]"
 ```
@@ -527,7 +527,7 @@ a + b // "[object Object][object Object]"
 运算过程如下：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码a.valueOf() // {}，上面提到过，ToPrimitive默认type为number，所以先valueOf，结果还是个对象，下一步
+a.valueOf() // {}，上面提到过，ToPrimitive默认type为number，所以先valueOf，结果还是个对象，下一步
 a.toString() // "[object Object]"
 b.valueOf() // 同理
 b.toString() // "[object Object]"
@@ -551,7 +551,7 @@ JavaScript中Number.MAX_SAFE_INTEGER表示最⼤安全数字，计算结果是90
 扩展运算符：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码let outObj = {
+let outObj = {
   inObj: {a: 1, b: 2}
 }
 let newObj = {...outObj}
@@ -562,7 +562,7 @@ console.log(outObj) // {inObj: {a: 2, b: 2}}
 Object.assign():
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码let outObj = {
+let outObj = {
   inObj: {a: 1, b: 2}
 }
 let newObj = Object.assign({}, outObj)
@@ -650,7 +650,7 @@ javascript
 **（3）箭头函数继承来的this指向永远不会改变**
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码var id = 'GLOBAL';
+var id = 'GLOBAL';
 var obj = {
   id: 'OBJ',
   a: function(){
@@ -671,7 +671,7 @@ new obj.b()  // Uncaught TypeError: obj.b is not a constructor
 **（4）call()、apply()、bind()等方法不能改变箭头函数中this的指向**
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码var id = 'Global';
+var id = 'Global';
 let fun1 = () => {
     console.log(this.id)
 };
@@ -700,7 +700,7 @@ fun1.bind({id: 'Obj'})();   // 'Global'
 可以⽤Babel理解⼀下箭头函数:
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码// ES6 
+// ES6 
 const obj = { 
   getArrow() { 
     return () => { 
@@ -713,7 +713,7 @@ const obj = {
 转化后：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码// ES5，由 Babel 转译
+// ES5，由 Babel 转译
 var obj = { 
    getArrow: function getArrow() { 
      var _this = this; 
@@ -731,14 +731,14 @@ var obj = {
 对象的扩展运算符(...)用于取出参数对象中的所有可遍历属性，拷贝到当前对象之中。
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码let bar = { a: 1, b: 2 };
+let bar = { a: 1, b: 2 };
 let baz = { ...bar }; // { a: 1, b: 2 }
 ```
 
 上述方法实际上等价于:
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码let bar = { a: 1, b: 2 };
+let bar = { a: 1, b: 2 };
 let baz = Object.assign({}, bar); // { a: 1, b: 2 }
 ```
 
@@ -747,7 +747,7 @@ let baz = Object.assign({}, bar); // { a: 1, b: 2 }
 同样，如果用户自定义的属性，放在扩展运算符后面，则扩展运算符内部的同名属性会被覆盖掉。
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码let bar = {a: 1, b: 2};
+let bar = {a: 1, b: 2};
 let baz = {...bar, ...{a:2, b: 4}};  // {a: 2, b: 4}
 ```
 
@@ -760,7 +760,7 @@ let baz = {...bar, ...{a:2, b: 4}};  // {a: 2, b: 4}
 数组的扩展运算符可以将一个数组转为用逗号分隔的参数序列，且每次只能展开一层数组。
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码console.log(...[1, 2, 3])
+console.log(...[1, 2, 3])
 // 1 2 3
 console.log(...[1, [2, 3, 4], 5])
 // 1 [2, 3, 4] 5
@@ -771,7 +771,7 @@ console.log(...[1, [2, 3, 4], 5])
 - **将数组转换为参数序列**
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码function add(x, y) {
+function add(x, y) {
   return x + y;
 }
 const numbers = [1, 2];
@@ -781,7 +781,7 @@ add(...numbers) // 3
 - **复制数组**
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码const arr1 = [1, 2];
+const arr1 = [1, 2];
 const arr2 = [...arr1];
 ```
 
@@ -834,7 +834,7 @@ javascript
 比较常见的应用是可以将某些数据结构转为数组：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码// arguments对象
+// arguments对象
 function foo() {
   const args = [...arguments];
 }
@@ -845,7 +845,7 @@ function foo() {
 - **使用**`Math`**函数获取数组中特定的值**
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码const numbers = [9, 4, 7, 1];
+const numbers = [9, 4, 7, 1];
 Math.min(...numbers); // 1
 Math.max(...numbers); // 9
 ```
@@ -877,7 +877,7 @@ javascript
 **2）对象的解构** 对象解构比数组结构稍微复杂一些，也更显强大。在解构对象时，是以属性的名称为匹配条件，来提取想要的数据的。现在定义一个对象：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码const stu = {
+const stu = {
   name: 'Bob',
   age: 24
 }
@@ -910,7 +910,7 @@ javascript
 有时会遇到一些嵌套程度非常深的对象：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码const school = {
+const school = {
    classes: {
       stu: {
          name: 'Bob',
@@ -933,7 +933,7 @@ javascript
 显然是不奏效的，因为 school 这个对象本身是没有 name 这个属性的，name 位于 school 对象的“儿子的儿子”对象里面。要想把 name 提取出来，一种比较笨的方法是逐层解构：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码const { classes } = school
+const { classes } = school
 const { stu } = classes
 const { name } = stu
 name // 'Bob'
@@ -942,7 +942,7 @@ name // 'Bob'
 但是还有一种更标准的做法，可以用一行代码来解决这个问题：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码const { classes: { stu: { name } }} = school
+const { classes: { stu: { name } }} = school
        
 console.log(name)  // 'Bob'
 ```
@@ -954,7 +954,7 @@ console.log(name)  // 'Bob'
 扩展运算符被用在函数形参上时，**它还可以把一个分离的参数序列整合成一个数组**：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码function mutiple(...args) {
+function mutiple(...args) {
   let result = 1;
   for (var val of args) {
     result *= val;
@@ -967,7 +967,7 @@ mutiple(1, 2, 3, 4) // 24
 这里，传入 mutiple 的是四个分离的参数，但是如果在 mutiple 函数里尝试输出 args 的值，会发现它是一个数组：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码function mutiple(...args) {
+function mutiple(...args) {
   console.log(args)
 }
 mutiple(1, 2, 3, 4) // [1, 2, 3, 4]
@@ -980,7 +980,7 @@ mutiple(1, 2, 3, 4) // [1, 2, 3, 4]
 ES6 提出了“模板语法”的概念。在 ES6 以前，拼接字符串是很麻烦的事情：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码var name = 'css'   
+var name = 'css'   
 var career = 'coder' 
 var hobby = ['coding', 'writing']
 var finalString = 'my name is ' + name + ', I work as a ' + career + ', I love ' + hobby[0] + ' and ' + hobby[1]
@@ -989,7 +989,7 @@ var finalString = 'my name is ' + name + ', I work as a ' + career + ', I love '
 仅仅几个变量，写了这么多加号，还要时刻小心里面的空格和标点符号有没有跟错地方。但是有了模板字符串，拼接难度直线下降：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码var name = 'css'   
+var name = 'css'   
 var career = 'coder' 
 var hobby = ['coding', 'writing']
 var finalString = `my name is ${name}, I work as a ${career} I love ${hobby[0]} and ${hobby[1]}`
@@ -1003,7 +1003,7 @@ var finalString = `my name is ${name}, I work as a ${career} I love ${hobby[0]} 
 基于第一点，可以在模板字符串里无障碍地直接写 html 代码：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码let list = `
+let list = `
 	<ul>
 		<li>列表项1</li>
 		<li>列表项2</li>
@@ -1015,7 +1015,7 @@ console.log(message); // 正确输出，不存在报错
 基于第二点，可以把一些简单的计算和调用丢进 ${} 来做：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码function add(a, b) {
+function add(a, b) {
   const finalString = `${a} + ${b} = ${a+b}`
   console.log(finalString)
 }
@@ -1029,7 +1029,7 @@ add(1, 2) // 输出 '1 + 2 = 3'
 - **includes**：判断字符串与子串的包含关系：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码const son = 'haha' 
+const son = 'haha' 
 const father = 'xixi haha hehe'
 father.includes(son) // true
 ```
@@ -1037,7 +1037,7 @@ father.includes(son) // true
 - **startsWith**：判断字符串是否以某个/某串字符开头：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码const father = 'xixi haha hehe'
+const father = 'xixi haha hehe'
 father.startsWith('haha') // false
 father.startsWith('xixi') // true
 ```
@@ -1045,14 +1045,14 @@ father.startsWith('xixi') // true
 - **endsWith**：判断字符串是否以某个/某串字符结尾：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码const father = 'xixi haha hehe'
+const father = 'xixi haha hehe'
   father.endsWith('hehe') // true
 ```
 
 （2）**自动重复**：可以使用 repeat 方法来使同一个字符串输出多次（被连续复制多次）：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码const sourceCode = 'repeat for 3 times;'
+const sourceCode = 'repeat for 3 times;'
 const repeated = sourceCode.repeat(3) 
 console.log(repeated) // repeat for 3 times;repeat for 3 times;repeat for 3 times;
 ```
@@ -1074,7 +1074,7 @@ console.log(repeated) // repeat for 3 times;repeat for 3 times;repeat for 3 time
 具体实现：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码function objectFactory() {
+function objectFactory() {
   let newObject = null;
   let constructor = Array.prototype.shift.call(arguments);
   let result = null;
@@ -1114,7 +1114,7 @@ objectFactory(构造函数, 初始化参数);
 实际上Map是一个数组，它的每一个数据也都是一个数组，其形式如下：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码const map = [
+const map = [
      ["name","张三"],
      ["age",18],
 ]
@@ -1137,7 +1137,7 @@ Map结构原生提供是三个遍历器生成函数和一个遍历方法
 - forEach()：遍历Map的所有成员。
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码const map = new Map([
+const map = new Map([
      ["foo",1],
      ["bar",2],
 ])
@@ -1214,7 +1214,7 @@ WeakMap的设计目的在于，有时想在某个对象上面存放一些数据�
 ### 5. 常用的正则表达式有哪些？
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码// （1）匹配 16 进制颜色值
+// （1）匹配 16 进制颜色值
 var regex = /#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})/g;
 
 // （2）匹配日期，如 yyyy-mm-dd 格式
@@ -1427,7 +1427,7 @@ javascript
 **定义：** 参加运算的两个数据**按二进制位**进行“与”运算。 **运算规则：**
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码0 & 0 = 0  
+0 & 0 = 0  
 0 & 1 = 0  
 1 & 0 = 0  
 1 & 1 = 1
@@ -1436,7 +1436,7 @@ javascript 体验AI代码助手 代码解读复制代码0 & 0 = 0
 总结：两位同时为1，结果才为1，否则结果为0。 例如：3&5 即：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码0000 0011 
+0000 0011 
    0000 0101 
  = 0000 0001
 ```
@@ -1460,7 +1460,7 @@ javascript 体验AI代码助手 代码解读复制代码0000 0011
 **运算规则：**
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码0 | 0 = 0
+0 | 0 = 0
 0 | 1 = 1  
 1 | 0 = 1  
 1 | 1 = 1
@@ -1469,7 +1469,7 @@ javascript 体验AI代码助手 代码解读复制代码0 | 0 = 0
 总结：参加运算的两个对象只要有一个为1，其值为1。 例如：3|5即：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码0000 0011
+0000 0011
   0000 0101 
 = 0000 0111
 ```
@@ -1483,7 +1483,7 @@ javascript 体验AI代码助手 代码解读复制代码0000 0011
 **运算规则：**
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码0 ^ 0 = 0  
+0 ^ 0 = 0  
 0 ^ 1 = 1  
 1 ^ 0 = 1  
 1 ^ 1 = 0
@@ -1492,7 +1492,7 @@ javascript 体验AI代码助手 代码解读复制代码0 ^ 0 = 0
 总结：参加运算的两个对象，如果两个相应位相同为0，相异为1。 例如：3|5即：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码0000 0011
+0000 0011
   0000 0101 
 = 0000 0110
 ```
@@ -1564,7 +1564,7 @@ javascript
 例如：-10
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码原码：1000 1010
+原码：1000 1010
 反码：1111 0101
 ```
 
@@ -1576,7 +1576,7 @@ javascript 体验AI代码助手 代码解读复制代码原码：1000 1010
 例如：-10
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码原码：1000 1010
+原码：1000 1010
 反码：1111 0101
 补码：1111 0110
 ```
@@ -1590,7 +1590,7 @@ javascript 体验AI代码助手 代码解读复制代码原码：1000 1010
 （1）将数组的方法应用到类数组上，这时候就可以使用`call`和`apply`方法，如：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码function foo(){ 
+function foo(){ 
   Array.prototype.forEach.call(arguments, a => console.log(a))
 }
 ```
@@ -1598,7 +1598,7 @@ javascript 体验AI代码助手 代码解读复制代码function foo(){
 （2）使用Array.from方法将类数组转化成数组：‌
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码function foo(){ 
+function foo(){ 
   const arrArgs = Array.from(arguments) 
   arrArgs.forEach(a => console.log(a))
 }
@@ -1607,7 +1607,7 @@ javascript 体验AI代码助手 代码解读复制代码function foo(){
 （3）使用展开运算符将类数组转化成数组
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码function foo(){ 
+function foo(){ 
     const arrArgs = [...arguments] 
     arrArgs.forEach(a => console.log(a)) 
 }
@@ -1682,7 +1682,7 @@ AJAX是 Asynchronous JavaScript and XML 的缩写，指的是通过 JavaScript �
 - 当对象的属性和监听函数设置完成后，最后调**用 sent 方法来向服务器发起请求**，可以传入参数作为发送的数据体。
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码const SERVER_URL = "/server";
+const SERVER_URL = "/server";
 let xhr = new XMLHttpRequest();
 // 创建 Http 请求
 xhr.open("GET", url, true);
@@ -1710,7 +1710,7 @@ xhr.send(null);
 使用Promise封装AJAX：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码// promise 封装实现：
+// promise 封装实现：
 function getJSON(url) {
   // 创建一个 promise 对象
   let promise = new Promise(function(resolve, reject) {
@@ -1792,7 +1792,7 @@ javascript
 变量提升虽然有一些优点，但是他也会造成一定的问题，在ES6中提出了let、const来定义变量，它们就没有变量提升的机制。下面看一下变量提升可能会导致的问题：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码var tmp = new Date();
+var tmp = new Date();
 
 function fn(){
 	console.log(tmp);
@@ -1807,7 +1807,7 @@ fn();  // undefined
 在这个函数中，原本是要打印出外层的tmp变量，但是因为变量提升的问题，内层定义的tmp被提到函数内部的最顶部，相当于覆盖了外层的tmp，所以打印结果为undefined。
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码var tmp = 'hello world';
+var tmp = 'hello world';
 
 for (var i = 0; i < tmp.length; i++) {
 	console.log(tmp[i]);
@@ -1840,7 +1840,7 @@ ES6 Module和CommonJS模块的共同点：
 DOM 节点的获取的API及使用：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码getElementById // 按照 id 查询
+getElementById // 按照 id 查询
 getElementsByTagName // 按照标签名查询
 getElementsByClassName // 按照类名查询
 querySelectorAll // 按照 css 选择器查询
@@ -1877,7 +1877,7 @@ html 体验AI代码助手 代码解读复制代码<html>
 要求添加一个有内容的 span 节点到 id 为 title 的节点后面，做法就是：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码// 首先获取父节点
+// 首先获取父节点
 var container = document.getElementById('container')
 // 创建新节点
 var targetSpan = document.createElement('span')
@@ -1892,7 +1892,7 @@ container.appendChild(targetSpan)
 **删除指定的 DOM 节点，** 已知的 HTML 结构如下：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码<html>
+<html>
   <head>
     <title>DEMO</title>
   </head>
@@ -1907,7 +1907,7 @@ javascript 体验AI代码助手 代码解读复制代码<html>
 需要删除 id 为 title 的元素，做法是：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码// 获取目标元素的父元素
+// 获取目标元素的父元素
 var container = document.getElementById('container')
 // 获取目标元素
 var targetNode = document.getElementById('title')
@@ -1932,7 +1932,7 @@ javascript
 **将指定的两个 DOM 元素交换位置，** 已知的 HTML 结构如下：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码<html>
+<html>
   <head>
     <title>DEMO</title>
   </head>
@@ -1948,7 +1948,7 @@ javascript 体验AI代码助手 代码解读复制代码<html>
 现在需要调换 title 和 content 的位置，可以考虑 insertBefore 或者 appendChild：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码// 获取父元素
+// 获取父元素
 var container = document.getElementById('container')   
  
 // 获取两个需要被交换的元素
@@ -2019,7 +2019,7 @@ for…of是作为ES6新增的遍历方式，允许遍历一个含有iterator接�
 如果需要遍历的对象是类数组对象，用Array.from转成数组即可。
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码var obj = {
+var obj = {
     0:'one',
     1:'two',
     length: 2
@@ -2033,7 +2033,7 @@ for(var k of obj){
 如果不是类数组对象，就给对象添加一个[Symbol.iterator]属性，并指向一个迭代器即可。
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码//方法一：
+//方法一：
 var obj = {
     a:1,
     b:2,
@@ -2147,7 +2147,7 @@ fetch的缺点：
 ### 2. 原型修改、重写
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码function Person(name) {
+function Person(name) {
     this.name = name
 }
 // 修改原型
@@ -2167,7 +2167,7 @@ console.log(p.__proto__ === p.constructor.prototype) // false
 可以看到修改原型的时候p的构造函数不是指向Person了，因为直接给Person的原型对象直接用对象赋值时，它的构造函数指向的了根构造函数Object，所以这时候`p.constructor === Object` ，而不是`p.constructor === Person`。要想成立，就要用constructor指回来：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码Person.prototype = {
+Person.prototype = {
     getName: function() {}
 }
 var p = new Person('hello')
@@ -2179,7 +2179,7 @@ console.log(p.__proto__ === p.constructor.prototype) // true
 ### 3. 原型链指向
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码p.__proto__  // Person.prototype
+p.__proto__  // Person.prototype
 Person.prototype.__proto__  // Object.prototype
 p.__proto__.__proto__ //Object.prototype
 p.__proto__.constructor.prototype.__proto__ // Object.prototype
@@ -2197,7 +2197,7 @@ Person.prototype.constructor  // Person
 使用后`hasOwnProperty()`方法来判断属性是否属于原型链的属性：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码function iterate(obj){
+function iterate(obj){
    var res=[];
    for(var key in obj){
         if(obj.hasOwnProperty(key))
@@ -2221,7 +2221,7 @@ javascript 体验AI代码助手 代码解读复制代码function iterate(obj){
 比如，函数 A 内部有一个函数 B，函数 B 可以访问到函数 A 中的变量，那么函数 B 就是闭包。
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码function A() {
+function A() {
   let a = 1
   window.B = function () {
       console.log(a)
@@ -2234,7 +2234,7 @@ B() // 1
 在 JS 中，闭包存在的意义就是让我们可以间接访问函数内部的变量。经典面试题：循环中使用闭包解决 var 定义函数的问题
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码for (var i = 1; i <= 5; i++) {
+for (var i = 1; i <= 5; i++) {
   setTimeout(function timer() {
     console.log(i)
   }, i * 1000)
@@ -2258,7 +2258,7 @@ javascript
 - 第二种就是使用 `setTimeout` 的第三个参数，这个参数会被当成 `timer` 函数的参数传入。
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码for (var i = 1; i <= 5; i++) {
+for (var i = 1; i <= 5; i++) {
   setTimeout(
     function timer(j) {
       console.log(j)
@@ -2272,7 +2272,7 @@ javascript 体验AI代码助手 代码解读复制代码for (var i = 1; i <= 5; 
 - 第三种就是使用 `let` 定义 `i` 了来解决问题了，这个也是最为推荐的方式
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码for (let i = 1; i <= 5; i++) {
+for (let i = 1; i <= 5; i++) {
   setTimeout(function timer() {
     console.log(i)
   }, i * 1000)
@@ -2331,7 +2331,7 @@ javascript 体验AI代码助手 代码解读复制代码for (let i = 1; i <= 5; 
 - 当JavaScript执行代码时，首先遇到全局代码，会创建一个全局执行上下文并且压入执行栈中，每当遇到一个函数调用，就会为该函数创建一个新的执行上下文并压入栈顶，引擎会执行位于执行上下文栈顶的函数，当函数执行完成之后，执行上下文从栈中弹出，继续执行下一个上下文。当所有的代码都执行完毕之后，从栈中弹出全局执行上下文。
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码let a = 'Hello World!';
+let a = 'Hello World!';
 function first() {
   console.log('Inside first function');
   second();
@@ -2411,7 +2411,7 @@ this 是执行上下文中的一个属性，它指向最后一次调用这个方
 - 返回结果。
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码Function.prototype.myCall = function(context) {
+Function.prototype.myCall = function(context) {
   // 判断调用对象
   if (typeof this !== "function") {
     console.error("type error");
@@ -2442,7 +2442,7 @@ javascript 体验AI代码助手 代码解读复制代码Function.prototype.myCal
 - 返回结果
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码Function.prototype.myApply = function(context) {
+Function.prototype.myApply = function(context) {
   // 判断调用对象是否为函数
   if (typeof this !== "function") {
     throw new TypeError("Error");
@@ -2472,7 +2472,7 @@ javascript 体验AI代码助手 代码解读复制代码Function.prototype.myApp
 - 函数内部使用 apply 来绑定函数调用，需要判断函数作为构造函数的情况，这个时候需要传入当前函数的 this 给 apply 调用，其余情况都传入指定的上下文对象。
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码Function.prototype.myBind = function(context) {
+Function.prototype.myBind = function(context) {
   // 判断调用对象是否为函数
   if (typeof this !== "function") {
     throw new TypeError("Error");
@@ -2506,7 +2506,7 @@ JavaScript中的异步机制可以分为以下几种：
 #### （1）setTimeout
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码console.log('script start')	//1. 打印 script start
+console.log('script start')	//1. 打印 script start
 setTimeout(function(){
     console.log('settimeout')	// 4. 打印 settimeout
 })	// 2. 调用 setTimeout 函数，并定义其完成后执行的回调函数
@@ -2519,7 +2519,7 @@ console.log('script end')	//3. 打印 script start
 Promise本身是**同步的立即执行函数**， 当在executor中执行resolve或者reject的时候, 此时是异步操作， 会先执行then/catch等，当主栈完成后，才会去调用resolve/reject中存放的方法执行，打印p的时候，是打印的返回结果，一个Promise实例。
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码console.log('script start')
+console.log('script start')
 let promise1 = new Promise(function (resolve) {
     console.log('promise1')
     resolve()
@@ -2544,7 +2544,7 @@ console.log('script end')
 #### （3）async/await
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码async function async1(){
+async function async1(){
    console.log('async1 start');
     await async2();
     console.log('async1 end')
@@ -2563,7 +2563,7 @@ async 函数返回一个 Promise 对象，当函数执行的时候，一旦遇�
 例如：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码async function func1() {
+async function func1() {
     return 1
 }
 console.log(func1())
@@ -2572,7 +2572,7 @@ console.log(func1())
 ![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/40194bdc07024b78b6da8bb43d84a7d8~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp) func1的运行结果其实就是一个Promise对象。因此也可以使用then来处理后续逻辑。
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码func1().then(res => {
+func1().then(res => {
     console.log(res);  // 30
 })
 ```
@@ -2626,7 +2626,7 @@ Promise对象代表一个异步操作，有三种状态：pending（进行中）
 Promise构造函数接受一个函数作为参数，该函数的两个参数分别是`resolve`和`reject`。
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码const promise = new Promise(function(resolve, reject) {
+const promise = new Promise(function(resolve, reject) {
   // ... some code
   if (/* 异步操作成功 */){
     resolve(value);
@@ -2643,7 +2643,7 @@ javascript 体验AI代码助手 代码解读复制代码const promise = new Prom
 `Promise.resolve(value)`的返回值也是一个promise对象，可以对返回值进行.then调用，代码如下：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码Promise.resolve(11).then(function(value){
+Promise.resolve(11).then(function(value){
   console.log(value); // 打印出11
 });
 ```
@@ -2667,7 +2667,7 @@ javascript
 就是下面的代码new Promise的简单形式：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码new Promise(function(resolve,reject){
+new Promise(function(resolve,reject){
    reject(new Error("我错了！"));
 });
 ```
@@ -2675,7 +2675,7 @@ javascript 体验AI代码助手 代码解读复制代码new Promise(function(res
 下面是使用resolve方法和reject方法：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码function testPromise(ready) {
+function testPromise(ready) {
   return new Promise(function(resolve,reject){
     if(ready) {
       resolve("hello world");
@@ -2703,7 +2703,7 @@ Promise有五个常用的方法：then()、catch()、all()、race()、finally。
 当Promise执行的内容符合成功条件时，调用`resolve`函数，失败就调用`reject`函数。Promise创建完了，那该如何调用呢？
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码promise.then(function(value) {
+promise.then(function(value) {
   // success
 }, function(error) {
   // failure
@@ -2715,7 +2715,7 @@ javascript 体验AI代码助手 代码解读复制代码promise.then(function(va
 当要写有顺序的异步事件时，需要串行时，可以这样写：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码let promise = new Promise((resolve,reject)=>{
+let promise = new Promise((resolve,reject)=>{
     ajax('first').success(function(res){
         resolve(res);
     })
@@ -2744,7 +2744,7 @@ promise.then(res=>{
 Promise对象除了有then方法，还有一个catch方法，该方法相当于`then`方法的第二个参数，指向`reject`的回调函数。不过`catch`方法还有一个作用，就是在执行`resolve`回调函数时，如果出现错误，抛出异常，不会停止运行，而是进入`catch`方法中。
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码p.then((data) => {
+p.then((data) => {
      console.log('resolved',data);
 },(err) => {
      console.log('rejected',err);
@@ -2762,7 +2762,7 @@ p.then((data) => {
 `all`方法可以完成并行任务， 它接收一个数组，数组的每一项都是一个`promise`对象。当数组中所有的`promise`的状态都达到`resolved`的时候，`all`方法的状态就会变成`resolved`，如果有一个状态变成了`rejected`，那么`all`方法的状态就会变成`rejected`。
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码javascript
+javascript
 let promise1 = new Promise((resolve,reject)=>{
 	setTimeout(()=>{
        resolve(1);
@@ -2791,7 +2791,7 @@ Promise.all([promise1,promise2,promise3]).then(res=>{
 `race`方法和`all`一样，接受的参数是一个每项都是`promise`的数组，但是与`all`不同的是，当最先执行完的事件执行完之后，就直接返回该`promise`对象的值。如果第一个`promise`对象状态变成`resolved`，那自身的状态变成了`resolved`；反之第一个`promise`变成`rejected`，那自身状态就会变成`rejected`。
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码let promise1 = new Promise((resolve,reject)=>{
+let promise1 = new Promise((resolve,reject)=>{
 	setTimeout(()=>{
        reject(1);
 	},2000)
@@ -2829,7 +2829,7 @@ javascript
 `finally`方法用于指定不管 Promise 对象最后状态如何，都会执行的操作。该方法是 ES2018 引入标准的。
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码promise
+promise
 .then(result => {···})
 .catch(error => {···})
 .finally(() => {···});
@@ -2840,7 +2840,7 @@ javascript 体验AI代码助手 代码解读复制代码promise
 下面是一个例子，服务器使用 Promise 处理请求，然后使用`finally`方法关掉服务器。
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码server.listen(port)
+server.listen(port)
   .then(function () {
     // ...
   })
@@ -2850,7 +2850,7 @@ javascript 体验AI代码助手 代码解读复制代码server.listen(port)
 `finally`方法的回调函数不接受任何参数，这意味着没有办法知道，前面的 Promise 状态到底是`fulfilled`还是`rejected`。这表明，`finally`方法里面的操作，应该是与状态无关的，不依赖于 Promise 的执行结果。`finally`本质上是`then`方法的特例：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码promise
+promise
 .finally(() => {
   // 语句
 });
@@ -2875,7 +2875,7 @@ promise
 在工作中经常会碰到这样一个需求，比如我使用ajax发一个A请求后，成功后拿到数据，需要把数据传给B请求；那么需要如下编写代码：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码let fs = require('fs')
+let fs = require('fs')
 fs.readFile('./a.txt','utf8',function(err,data){
   fs.readFile(data,'utf8',function(err,data){
     fs.readFile(data,'utf8',function(err,data){
@@ -2893,7 +2893,7 @@ fs.readFile('./a.txt','utf8',function(err,data){
 `Promise`出现之后，代码变成这样：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码let fs = require('fs')
+let fs = require('fs')
 function read(url){
   return new Promise((resolve,reject)=>{
     fs.readFile(url,'utf8',function(error,data){
@@ -2938,7 +2938,7 @@ javascript
 async/await其实是`Generator` 的语法糖，它能实现的效果都能用then链来实现，它是为优化then链而开发出来的。从字面上来看，async是“异步”的简写，await则为等待，所以很好理解async 用于申明一个 function 是异步的，而 await 用于等待一个异步方法执行完成。当然语法上强制规定await只能出现在asnyc函数中，先来看看async函数返回了什么：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码async function testAsy(){
+async function testAsy(){
    return 'hello world';
 }
 let result = testAsy(); 
@@ -2952,7 +2952,7 @@ console.log(result)
 async 函数返回的是一个 Promise 对象，所以在最外层不能用 await 获取其返回值的情况下，当然应该用原来的方式：`then()` 链来处理这个 Promise 对象，就像这样：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码async function testAsy(){
+async function testAsy(){
    return 'hello world'
 }
 let result = testAsy() 
@@ -2975,7 +2975,7 @@ result.then(v=>{
 因为 async 函数返回一个 Promise 对象，所以 await 可以用于等待一个 async 函数的返回值——这也可以说是 await 在等 async 函数，但要清楚，它等的实际是一个返回值。注意到 await 不仅仅用于等 Promise 对象，它可以等任意表达式的结果，所以，await 后面实际是可以接普通函数调用或者直接量的。所以下面这个示例完全可以正确运行：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码function getSomething() {
+function getSomething() {
     return "something";
 }
 async function testAsync() {
@@ -2997,7 +2997,7 @@ await 表达式的运算结果取决于它等的是什么。
 来看一个例子：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码function testAsy(x){
+function testAsy(x){
    return new Promise(resolve=>{setTimeout(() => {
        resolve(x);
      }, 3000)
@@ -3022,7 +3022,7 @@ console.log('cug')  //立即输出cug
 假设一个业务，分多个步骤完成，每个步骤都是异步的，而且依赖于上一个步骤的结果。仍然用 `setTimeout` 来模拟异步操作：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码/**
+/**
  * 传入参数 n，表示这个函数执行的时间（毫秒）
  * 执行的结果是 n + 200，这个值将用于下一步骤
  */
@@ -3048,7 +3048,7 @@ function step3(n) {
 现在用 Promise 方式来实现这三个步骤的处理：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码function doIt() {
+function doIt() {
     console.time("doIt");
     const time1 = 300;
     step1(time1)
@@ -3073,7 +3073,7 @@ doIt();
 如果用 async/await 来实现呢，会是这样：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码async function doIt() {
+async function doIt() {
     console.time("doIt");
     const time1 = 300;
     const time2 = await step1(time1);
@@ -3097,7 +3097,7 @@ doIt();
 ### 11. async/await 如何捕获异常
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码async function fn(){
+async function fn(){
     try{
         let a = await Promise.reject('error')
     }catch(error){
@@ -3165,7 +3165,7 @@ javascript 体验AI代码助手 代码解读复制代码async function fn(){
 - 这种方法会引起**循环引用**的问题：例如：` obj1`和`obj2`通过属性进行相互引用，两个对象的引用次数都是2。当使用循环计数时，由于函数执行完后，两个对象都离开作用域，函数执行结束，`obj1`和`obj2`还将会继续存在，因此它们的引用次数永远不会是0，就会引起循环引用。
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码function fun() {
+function fun() {
     let obj1 = {};
     let obj2 = {};
     obj1.a = obj2; // obj1 引用 obj2
@@ -3176,7 +3176,7 @@ javascript 体验AI代码助手 代码解读复制代码function fun() {
 这种情况下，就要手动释放变量占用的内存：
 
 ```javascript
-javascript 体验AI代码助手 代码解读复制代码obj1.a =  null
+obj1.a =  null
  obj2.a =  null
 ```
 

@@ -5,10 +5,8 @@
 3. 要避免出现这种情况，可以在外层嵌套 template，在这一层加 v-if，然后内部进行 v-for 循环
 4. 如果条件出现在循环内部，可通过计算属性提前过滤掉那些不需要显示的项
 
-源码中找答案 compiler/codegen/index.js
-
 ```JS
-JS 体验AI代码助手 代码解读复制代码// Vue2 源码相关处
+// Vue2 源码相关处
 if (el.staticRoot && !el.staticProcessed) {
     return genStatic(el, state)
 } else if (el.once && !el.onceProcessed) {
@@ -50,11 +48,7 @@ switch (node.type) {
 2. 采用函数形式定义，在 initData() 时会将其作为工厂函数`返回全新 data 实例，有效规避多实例之间状态污染问题`
 3. vue 根实例创建过程中，则不存在该限制，也是因为根实例只有一个，不需要担心这种情况。
 
-源码中找答案：src\core\instance\state.js - initData()
-
 ## 3、key 的作用和工作原理吗？
-
-源码中找答案：src\core\vdom\patch.js - updateChildren()
 
 1. key 的作用主要就是为了高效的更新DOM，其原理是vue在patch过程中通过key可以精准判断两个节点是否是同一个，从而避免频繁的更新相同元素，使得整个patch过程更加高效，减少DOM操作量，提高性能。
 2. 如果不设置key，还可能在列表更新时引发一些隐藏bug
@@ -205,7 +199,7 @@ Object.defineProperty 有哪些缺陷，Vue3 为什么要用 proxy 重构
 observer类
 
 ```js
-js 体验AI代码助手 代码解读复制代码/* observer 类会附加到每一个被侦测的object上 
+/* observer 类会附加到每一个被侦测的object上 
 * 一旦被附加上，observer会被object的所有属性转换为getter/setter的形式 
 * 当属性发生变化时候及时通知依赖 
 */
@@ -253,7 +247,7 @@ function defineReactive(data, key, val) {
 Dep 依赖收集
 
 ```js
-js 体验AI代码助手 代码解读复制代码export default class Dep {
+export default class Dep {
   constructor() {
     this.subs = [] // 观察者集合 
   }
@@ -295,7 +289,7 @@ function remove(arr, item) {
 watcher
 
 ```js
-js 体验AI代码助手 代码解读复制代码export default class Watcher {
+export default class Watcher {
   constructor(vm, expOrFn, cb) {
     // 组件实例对象  
     // 要观察的表达式，函数，或者字符串，只要能触发取值操作 
@@ -318,7 +312,7 @@ js 体验AI代码助手 代码解读复制代码export default class Watcher {
     this.cb.call(this.vm, this.value, oldValue)
   }
 }
-markdown 体验AI代码助手 代码解读复制代码* data通过Observer转换成了getter/setter的形式来追踪变化 
+markdown * data通过Observer转换成了getter/setter的形式来追踪变化 
 * 当外界通过Watcher读取数据时，会触发getter从而将watcher添加到依赖中 
 * 当数据变化时，会触发setter从而向Dep中的依赖（watcher）发送通知 
 * watcher接收通知后，会向外界发送通知，变化通知到外界后可能会触发视图更新，也有可能触发用户的某个回调函数等
@@ -411,7 +405,7 @@ vue2 中的数据响应式会根据数据类型来做不同处理，
 macrotasks 任务的实现: setImmediate / MessageChannel / setTimeout
 
 ```js
-js 体验AI代码助手 代码解读复制代码// <div  ref="div"  style width="width" />
+// <div  ref="div"  style width="width" />
 // <button @click="changeWidth" />
 // width: 100px
 
@@ -543,7 +537,7 @@ mounted() {
 - `unmounted`：销毁⼀个实例。可清理它与其它实例的连接，解绑它的全部指令及事件监听器
 
 ```js
-js 体验AI代码助手 代码解读复制代码// vue2中声明周期的派发时刻：
+ // vue2中声明周期的派发时刻：
 ...
 vm._self = vm
 initLifecycle(vm)
@@ -592,7 +586,7 @@ if (options.beforeCreate) {
 6. 当需要在数据变化时`执行异步或开销较大`的操作时，这个方式是最有用的。这是和 computed 最大的区别，请勿滥用.
 
 ```js
-js 体验AI代码助手 代码解读复制代码data(){
+ data(){
  return {
    age:5,
    type: 'child'
@@ -661,7 +655,7 @@ computed: {
 更多可参考：[juejin.cn/post/721504…](https://juejin.cn/post/7215043206035357752)
 
 ```js
-js 体验AI代码助手 代码解读复制代码// 注册一个全局自定义指令 `v-focus`
+ // 注册一个全局自定义指令 `v-focus`
 Vue.directive('focus', {
   // 当被绑定的元素插入到 DOM 中时……
   inserted: function (el) {
@@ -719,7 +713,7 @@ hash 模式的优缺点：
 1. HTML5History
 
 ```js
-js 体验AI代码助手 代码解读复制代码window.history.pushState(stateObject, title, URL)
+ window.history.pushState(stateObject, title, URL)
 window.history.replaceState(stateObject, title, URL)
 popState
 ```
@@ -742,7 +736,7 @@ json
 1. transitionTo()函数
 
 ```js
-js 体验AI代码助手 代码解读复制代码HashHistory.push()
+ HashHistory.push()
 HashHistory.replace()
 
 HTML5History.pushState()
@@ -790,7 +784,7 @@ Mixins：则是在引入组件之后与组件中的对象和方法进行合并�
 源码位置：/src/core/global-api/mixin.js
 
 ```js
-js 体验AI代码助手 代码解读复制代码export function initMixin (Vue: GlobalAPI) {
+ export function initMixin (Vue: GlobalAPI) {
     Vue.mixin = function (mixin: Object) {
         this.options = mergeOptions(this.options, mixin)
         return this
@@ -803,7 +797,7 @@ js 体验AI代码助手 代码解读复制代码export function initMixin (Vue: 
 源码位置：/src/core/util/options.js
 
 ```js
-js 体验AI代码助手 代码解读复制代码export function mergeOptions (
+ export function mergeOptions (
   parent: Object,
   child: Object,
   vm?: Component
@@ -903,7 +897,7 @@ Vuex 的辅助函数：
 2. 混⼊ mixins 是分发 Vue 组件中可复⽤功能的⾮常灵活的⽅式。混⼊对象可以包含任意组件选项。当组件使⽤混⼊对象时，所有混⼊对象的选项将被混⼊该组件本身的选项。
 
 ```JS
-JS 体验AI代码助手 代码解读复制代码// 复⽤代码：它是⼀个配置对象，选项和组件⾥⾯⼀样
+ // 复⽤代码：它是⼀个配置对象，选项和组件⾥⾯⼀样
 const mymixin = {
   methods: {
     dosomething(){}
@@ -922,7 +916,7 @@ const Comp = {
 2. 组件选项中还有⼀个不太常⽤的选项 extends，也可以起到扩展组件的⽬的。
 
 ```js
-js 体验AI代码助手 代码解读复制代码// 扩展对象
+ // 扩展对象
 const myextends = {
   methods: {
     dosomething(){}
@@ -939,7 +933,7 @@ const Comp = {
 1. 混⼊的数据和⽅法不能明确判断来源且可能和当前组件内变量产⽣命名冲突，vue3 中引⼊的 composition api，可以很好解决这些问题，利⽤独⽴出来的响应式模块可以很⽅便的编写独⽴逻辑并提供响应式的数据，然后在 setup 选项中组合使⽤，增强代码的可读性和维护性。例如：
 
 ```js
-js 体验AI代码助手 代码解读复制代码// 复⽤逻辑1
+ // 复⽤逻辑1
 function useXX() {}
 // 复⽤逻辑2
 function useYY() {}
@@ -958,7 +952,7 @@ const Comp = {
 1. 所有的 prop 都使得其⽗⼦之间形成了⼀个单向下⾏绑定：⽗级 prop 的更新会向下流动到⼦组件中，但是反过来则不⾏。这样会防⽌从⼦组件意外变更⽗级组件的状态，从⽽导致你的应⽤的数据流向难以理解。另外，每次⽗级组件发⽣变更时，⼦组件中所有的 prop 都将会刷新为最新的值。这意味着你不应该在⼀个⼦组件内部改变 prop。如果你这样做了，Vue 会在浏览器控制台中发出警告。
 
 ```js
-js 体验AI代码助手 代码解读复制代码const props = defineProps(['foo']) 
+ const props = defineProps(['foo']) 
 // 下⾯⾏为会被警告, props是只读的! 
 props.foo = 'bar'
 ```
@@ -968,14 +962,14 @@ props.foo = 'bar'
 - 这个 prop ⽤来传递⼀个初始值；这个⼦组件接下来希望将其作为⼀个本地的 prop 数据来使⽤。在这 种情况下，最好定义⼀个本地的 data，并将这个 prop ⽤作其初始值：
 
 ```js
-js 体验AI代码助手 代码解读复制代码const props = defineProps(['initialCounter']) 
+ const props = defineProps(['initialCounter']) 
 const counter = ref(props.initialCounter)
 ```
 
 - 这个 prop 以⼀种原始的值传⼊且需要进⾏转换。在这种情况下，最好使⽤这个 prop 的值来定义⼀个计 算属性：
 
 ```js
-js 体验AI代码助手 代码解读复制代码const props = defineProps(['size']) 
+ const props = defineProps(['size']) 
 // prop变化，计算属性⾃动更新 
 const normalizedSize = computed(() => props.size.trim().toLowerCase())
 ```
