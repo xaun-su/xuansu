@@ -1,3 +1,14 @@
+---
+title: react使用及原理
+createTime: 2025/05/27 21:39:21
+permalink: /article/react使用及原理/
+
+tags: 
+  - react
+  - 面试题
+  - 原理
+---
+
 ## 一、 React 与 Vue 的比较
 
 React和Vue的比较可以从多个维度进行：
@@ -696,6 +707,76 @@ useState本身是同步的，但它触发的状态更新和重新渲染是异步
     6. 然后，`useState`会返回这个新的 `[hook.memoizedState, dispatchAction]`。
 
     7. 如果新计算出的`hook.memoizedState`与上一次（在处理队列前）的`memoizedState`不同（通过`Object.is`），React会标记该组件需要继续渲染其子节点。
+    
+    **手写useState**
+  
+  ```js
+  <!DOCTYPE html>
+  <html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <title>手写 useState 示例</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <button id="increment">加一</button>
+    <button id="reset">重置</button>
+  
+    <script>
+      // 模拟 React 的状态存储和 hook 管理
+        //多个状态存储
+      let hookStates = [];
+  	//第几个状态
+      let hookIndex = 0;
+  
+      function useState(initialState) {
+        const currentIndex = hookIndex;
+  //初始化
+        if (hookStates[currentIndex] === undefined) {
+          hookStates[currentIndex] = initialState;
+        }
+  
+        const setState = (newState) => {
+          if (typeof newState === 'function') {
+            hookStates[currentIndex] = newState(hookStates[currentIndex]);
+          } else {
+              //当前状态的值设置为newState
+            hookStates[currentIndex] = newState;
+          }
+          render(); // 重新渲染组件
+        };
+  //准备给下一个 useState 用
+        hookIndex++;
+          //返回函数
+        return [hookStates[currentIndex], setState];
+      }
+  	//设置并创建环境
+      function Counter() {
+        const [count, setCount] = useState(0);
+        const app = document.getElementById('app');
+        app.innerHTML = `<h2>计数器：${count}</h2>`;
+  
+        // 按钮事件绑定
+          //箭头函数确保变量是当前函数
+        document.getElementById('increment').onclick = () => setCount(prev => prev + 1);
+        document.getElementById('reset').onclick = () => setCount(0);
+      }
+  
+      function render() {
+          //每次组件函数重新执行，所有 useState()（或其他 Hook）都会重新被调用一次：
+        hookIndex = 0; // 每次 render 重置 index
+        Counter();     // 渲染函数组件
+      }
+  
+      // 初始渲染
+      render();
+    </script>
+  </body>
+  </html>
+  
+  ```
+  
+  
 
 ### useEffect原理 `useEffect(setup, dependencies?)`
 

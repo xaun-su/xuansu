@@ -1,3 +1,14 @@
+---
+title: JavaScript使用及原理
+createTime: 2025/05/27 21:39:21
+permalink: /article/JavaScript使用及原理/
+
+tags: 
+  - javascript
+  - 面试题
+  - 原理
+---
+
 ## 一、数据类型
 
 ### 1. JavaScript有哪些数据类型，它们的区别？

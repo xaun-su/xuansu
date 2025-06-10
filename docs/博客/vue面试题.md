@@ -1,3 +1,14 @@
+---
+title: vue使用及原理
+createTime: 2025/05/27 21:39:21
+permalink: /article/vue使用及原理/
+
+tags: 
+  - vue
+  - 面试题
+  - 原理
+---
+
 ## 1、v-if 和 v-for 哪个优先级高
 
 1. `vue2 中，v-for 优先于 v-if，vue3 中 v-if 的优先级⾼于 v-for`
