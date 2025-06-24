@@ -125,9 +125,9 @@ console.log(a.call(null));
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码Object.prototype.toString.call(obj).slice(8,-1) === 'Array';
+
+ 
+Object.prototype.toString.call(obj).slice(8,-1) === 'Array';
 ```
 
 - 通过原型链做判断
@@ -135,9 +135,9 @@ javascript
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码obj.__proto__ === Array.prototype;
+
+ 
+obj.__proto__ === Array.prototype;
 ```
 
 - 通过ES6的Array.isArray()做判断
@@ -145,9 +145,9 @@ javascript
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码Array.isArrray(obj);
+
+ 
+Array.isArrray(obj);
 ```
 
 - 通过instanceof做判断
@@ -155,9 +155,9 @@ javascript
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码obj instanceof Array
+
+ 
+obj instanceof Array
 ```
 
 - 通过Array.prototype.isPrototypeOf
@@ -165,9 +165,9 @@ javascript
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码Array.prototype.isPrototypeOf(obj)
+
+ 
+Array.prototype.isPrototypeOf(obj)
 ```
 
 ### 4. null和undefined区别
@@ -238,9 +238,9 @@ console.log(n1 + n2)  // 0.30000000000000004
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码(n1 + n2).toFixed(2) // 注意，toFixed为四舍五入
+
+ 
+(n1 + n2).toFixed(2) // 注意，toFixed为四舍五入
 ```
 
 `toFixed(num)` 方法可把 Number 四舍五入为指定小数位数的数字。那为什么会出现这样的结果呢？
@@ -262,9 +262,9 @@ javascript
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码0.00011001100110011001100110011001100110011001100110011001 10011...
+
+ 
+0.00011001100110011001100110011001100110011001100110011001 10011...
 ```
 
 转为科学计数法（科学计数法的结果就是浮点数）：
@@ -272,9 +272,9 @@ javascript
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码1.1001100110011001100110011001100110011001100110011001*2^-4
+
+ 
+1.1001100110011001100110011001100110011001100110011001*2^-4
 ```
 
 可以看出0.1的符号位为0，指数位为-4，小数位为：
@@ -282,9 +282,9 @@ javascript
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码1001100110011001100110011001100110011001100110011001
+
+ 
+1001100110011001100110011001100110011001100110011001
 ```
 
 那么问题又来了，**指数位是负数，该如何保存**呢？
@@ -302,9 +302,9 @@ IEEE标准规定了一个偏移量，对于指数部分，每次都加这个偏�
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码0 1111111011 1001100110011001100110011001100110011001100110011001
+
+ 
+0 1111111011 1001100110011001100110011001100110011001100110011001
 ```
 
 说了这么多，是时候该最开始的问题了，如何实现0.1+0.2=0.3呢？
@@ -330,9 +330,9 @@ NaN 指“不是一个数字”（not a number），NaN 是一个“警戒值”
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码typeof NaN; // "number"
+
+ 
+typeof NaN; // "number"
 ```
 
 NaN 是一个特殊值，它和自身不相等，是唯一一个非自反（自反，reflexive，即 x === x 不成立）的值。而 NaN !== NaN 为 true。
@@ -649,9 +649,9 @@ new操作符的实现步骤如下：
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码let fn = () => void doesNotReturn();
+
+ 
+let fn = () => void doesNotReturn();
 ```
 
 **（2）箭头函数没有自己的this**
@@ -805,9 +805,9 @@ const arr2 = [...arr1];
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码const arr1 = ['two', 'three'];const arr2 = ['one', ...arr1, 'four', 'five'];// ["one", "two", "three", "four", "five"]
+
+ 
+const arr1 = ['two', 'three'];const arr2 = ['one', ...arr1, 'four', 'five'];// ["one", "two", "three", "four", "five"]
 ```
 
 - **扩展运算符与解构赋值结合起来，用于生成数组**
@@ -815,9 +815,9 @@ javascript
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码const [first, ...rest] = [1, 2, 3, 4, 5];first // 1rest  // [2, 3, 4, 5]
+
+ 
+const [first, ...rest] = [1, 2, 3, 4, 5];first // 1rest  // [2, 3, 4, 5]
 ```
 
 需要注意：**如果将扩展运算符用于数组赋值，只能放在参数的最后一位，否则会报错。**
@@ -825,9 +825,9 @@ javascript
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码const [...rest, last] = [1, 2, 3, 4, 5];         // 报错const [first, ...rest, last] = [1, 2, 3, 4, 5];  // 报错
+
+ 
+const [...rest, last] = [1, 2, 3, 4, 5];         // 报错const [first, ...rest, last] = [1, 2, 3, 4, 5];  // 报错
 ```
 
 - **将字符串转为真正的数组**
@@ -835,9 +835,9 @@ javascript
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码[...'hello']    // [ "h", "e", "l", "l", "o" ]
+
+ 
+[...'hello']    // [ "h", "e", "l", "l", "o" ]
 ```
 
 - **任何 Iterator 接口的对象，都可以用扩展运算符转为真正的数组**
@@ -868,9 +868,9 @@ Math.max(...numbers); // 9
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码const [a, b, c] = [1, 2, 3]
+
+ 
+const [a, b, c] = [1, 2, 3]
 ```
 
 最终，a、b、c分别被赋予了数组第0、1、2个索引位的值： ![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e55fc36b191340e69698782fbd67ef4f~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp) 数组里的0、1、2索引位的元素值，精准地被映射到了左侧的第0、1、2个变量里去，这就是数组解构的工作模式。还可以通过给左侧变量数组设置空占位的方式，实现对数组中某几个元素的精准提取：
@@ -878,9 +878,9 @@ javascript
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码const [a,,c] = [1,2,3]
+
+ 
+const [a,,c] = [1,2,3]
 ```
 
 通过把中间位留空，可以顺利地把数组第一位和最后一位的值赋给 a、c 两个变量： ![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a14ffbb3df2646a4a84f4a0c7d62d975~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
@@ -899,9 +899,9 @@ const stu = {
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码const { name, age } = stu
+
+ 
+const { name, age } = stu
 ```
 
 这样就得到了 name 和 age 两个和 stu 平级的变量： ![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1ed2565845f2415b8243c8c355b2c6d6~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
@@ -911,9 +911,9 @@ javascript
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码const { age, name } = stu
+
+ 
+const { age, name } = stu
 ```
 
 ### 9. **如何提取高度嵌套的对象里的指定属性？**
@@ -936,9 +936,9 @@ const school = {
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码const { name } = school
+
+ 
+const { name } = school
 ```
 
 显然是不奏效的，因为 school 这个对象本身是没有 name 这个属性的，name 位于 school 对象的“儿子的儿子”对象里面。要想把 name 提取出来，一种比较笨的方法是逐层解构：
@@ -1277,9 +1277,9 @@ JSON 是一种基于文本的轻量级的数据交换格式。它可以被任何
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码Array.prototype.slice.call(arrayLike);
+
+ 
+Array.prototype.slice.call(arrayLike);
 ```
 
 （2）通过 call 调用数组的 splice 方法来实现转换
@@ -1287,9 +1287,9 @@ javascript
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码Array.prototype.splice.call(arrayLike, 0);
+
+ 
+Array.prototype.splice.call(arrayLike, 0);
 ```
 
 （3）通过 apply 调用数组的 concat 方法来实现转换
@@ -1297,9 +1297,9 @@ javascript
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码Array.prototype.concat.apply([], arrayLike);
+
+ 
+Array.prototype.concat.apply([], arrayLike);
 ```
 
 （4）通过 Array.from 方法来实现转换
@@ -1307,9 +1307,9 @@ javascript
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码Array.from(arrayLike);
+
+ 
+Array.from(arrayLike);
 ```
 
 ### 9. 数组有哪些原生方法？
@@ -1524,9 +1524,9 @@ javascript
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码~ 1 = 0~ 0 = 1
+
+ 
+~ 1 = 0~ 0 = 1
 ```
 
 总结：对一个二进制数按位取反，即将0变1，1变0。 例如：~6 即：
@@ -1534,9 +1534,9 @@ javascript
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码0000 0110= 1111 1001
+
+ 
+0000 0110= 1111 1001
 ```
 
 在计算机中，正数用原码表示，负数使用补码存储，首先看最高位，最高位1表示负数，0表示正数。此计算机二进制码为负数，最高位为符号位。 当发现按位取反为负数时，就**直接取其补码**，变为十进制：
@@ -1544,9 +1544,9 @@ javascript
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码0000 0110   = 1111 1001反码：1000 0110补码：1000 0111
+
+ 
+0000 0110   = 1111 1001反码：1000 0110补码：1000 0111
 ```
 
 因此，~6的值为-7。
@@ -1640,9 +1640,9 @@ function foo(){
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码Array.prototype.slice.call(arrayLike);
+
+ 
+Array.prototype.slice.call(arrayLike);
 ```
 
 - 通过 call 调用数组的 splice 方法来实现转换
@@ -1650,9 +1650,9 @@ javascript
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码Array.prototype.splice.call(arrayLike, 0);
+
+ 
+Array.prototype.splice.call(arrayLike, 0);
 ```
 
 - 通过 apply 调用数组的 concat 方法来实现转换
@@ -1660,9 +1660,9 @@ javascript
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码Array.prototype.concat.apply([], arrayLike);
+
+ 
+Array.prototype.concat.apply([], arrayLike);
 ```
 
 - 通过 Array.from 方法来实现转换
@@ -1670,9 +1670,9 @@ javascript
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码Array.from(arrayLike);
+
+ 
+Array.from(arrayLike);
 ```
 
 ### 15. escape、encodeURI、encodeURIComponent 的区别
@@ -1786,9 +1786,9 @@ function getJSON(url) {
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码a = 1;var a;console.log(a);
+
+ 
+a = 1;var a;console.log(a);
 ```
 
 如果没有变量提升，这两行代码就会报错，但是因为有了变量提升，这段代码就可以正常执行。
@@ -1873,7 +1873,7 @@ var pList = document.querySelectorAll('.mooc') // 查询到类名为 mooc 的集
 **创建一个新节点，并把它添加到指定节点的后面。** 已知的 HTML 结构如下：
 
 ```html
-html 体验AI代码助手 代码解读复制代码<html>
+html <html>
   <head>
     <title>DEMO</title>
   </head>
@@ -1931,9 +1931,9 @@ container.removeChild(targetNode)
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码// 获取目标元素的父元素var container = document.getElementById('container')// 获取目标元素var targetNode = container.childNodes[1]// 删除目标元素container.removeChild(targetNode)
+
+ 
+// 获取目标元素的父元素var container = document.getElementById('container')// 获取目标元素var targetNode = container.childNodes[1]// 删除目标元素container.removeChild(targetNode)
 ```
 
 #### 4）修改 DOM 元素
@@ -2259,9 +2259,9 @@ for (var i = 1; i <= 5; i++) {
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码for (var i = 1; i <= 5; i++) {  ;(function(j) {    setTimeout(function timer() {      console.log(j)    }, j * 1000)  })(i)}
+
+ 
+for (var i = 1; i <= 5; i++) {  ;(function(j) {    setTimeout(function timer() {      console.log(j)    }, j * 1000)  })(i)}
 ```
 
 在上述代码中，首先使用了立即执行函数将 `i` 传入函数内部，这个时候值就被固定在了参数 `j` 上面不会改变，当下次执行 `timer` 这个闭包的时候，就可以使用外部函数的变量 `j`，从而达到目的。
@@ -2670,9 +2670,9 @@ Promise.resolve(11).then(function(value){
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码Promise.reject(new Error(“我错了，请原谅俺！！”));
+
+ 
+Promise.reject(new Error(“我错了，请原谅俺！！”));
 ```
 
 就是下面的代码new Promise的简单形式：
@@ -2830,9 +2830,9 @@ Promise.race([promise1,promise2,promise3]).then(res=>{
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码Promise.race([promise1,timeOutPromise(5000)]).then(res=>{})
+
+ 
+Promise.race([promise1,timeOutPromise(5000)]).then(res=>{})
 ```
 
 **5. finally()**
@@ -2939,9 +2939,9 @@ Promise.all中传入的是数组，返回的也是是数组，并且会将进行
 ```javascript
 javascript
 
- 体验AI代码助手
- 代码解读
-复制代码Promise.race([promise1,timeOutPromise(5000)]).then(res=>{})
+
+ 
+Promise.race([promise1,timeOutPromise(5000)]).then(res=>{})
 ```
 
 ### 7.  对async/await 的理解
