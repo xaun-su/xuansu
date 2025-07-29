@@ -1,12 +1,12 @@
 ---
 title: 原生js-基于webComponent实现自定义组件
-date: 2025-5-29
+date: 2025-7-29
 categories:
   - 前端
 tags:
   - JavaScript
   - 自定义组件
-createTime: 2025/05/29 10:10:10
+createTime: 2025/07/29 10:10:10
 permalink: /article/原生js-基于webComponent实现自定义组件/
 ---
 
