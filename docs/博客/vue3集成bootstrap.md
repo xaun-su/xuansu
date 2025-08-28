@@ -17,7 +17,6 @@ permalink: /article/Vue3集成bootstrap/
 
 项目搭建详情：[vite+vue3框架搭建](./vite+vue3框架搭建.md)
 
-
 ### 2.集成bootstrap5
 
 ```js
