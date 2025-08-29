@@ -1,3 +1,8 @@
+---
+title: echarths使用方法
+createTime: 2025/07/30 17:09:33
+permalink: /article/swcov3d9/
+---
 title: echarts使用总结
 date: 2025-7-10
 categories:
