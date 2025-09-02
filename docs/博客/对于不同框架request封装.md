@@ -183,7 +183,71 @@ export default request;
 ## 3.uniapp+vue3+uvui
 
 ```js
+import baseURL from './base.js'; // 导入接口前缀地址
 
+// 全局请求计数器（避免多次请求导致loading频繁闪烁）
+// let requestCount = 0;
+
+export const myRequest = (options) => {
+	return new Promise((resolve, reject) => {
+		// 显示加载状态（只在第一个请求时显示）
+		// if (requestCount === 0 && options.showLoading !== false) {
+
+		// }
+		// requestCount++;
+		// const match = options.url.match(/(.*)\/\d+$/);
+		// if (!match) {
+		// 	uni.showLoading({
+		// 		title: '加载中...',
+		// 	})
+		// };
+		uni.request({
+			url: baseURL + options.url, // 接口地址
+			method: options.method || 'GET', // 请求方法
+			data: options.data || {}, // 请求参数
+			timeout: options.timeout || 10000, // 添加超时设置
+			header: { // 修正为header（注意拼写）
+				'Authorization': uni.getStorageSync('token'),
+				...options.header // 允许自定义header覆盖[6](@ref)
+			},
+			success: (res) => {
+				// uni.hideLoading();
+				// 统一响应处理
+				if (res.data.code === 1030) {
+					uni.navigateTo({
+						url: '/pages/login/login'
+					}); // token过期跳转登录
+					return reject(new Error('登录状态已过期'));
+				}
+
+				if (res.data.code >= 200 && res.data.code < 300) {
+					resolve(res.data);
+				} else {
+					
+					const errMsg = res.data?.message || `请求失败(${res.statusCode})`;
+				
+					uni.showToast({
+						title: errMsg,
+						icon: 'none'
+					}); // 错误提示
+					reject(new Error(errMsg));
+				}
+			},
+			fail: (err) => {
+		
+				uni.showToast({
+					title: '网络连接失败',
+					icon: 'none'
+				});
+				reject(err);
+			},
+			complete: () => {
+				// 关闭加载状态（最后一个请求完成时关闭）
+				// uni.hideLoading();
+			}
+		});
+	});
+};
 ```
 
 ## 4.taro+react
