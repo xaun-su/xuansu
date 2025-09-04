@@ -5,7 +5,7 @@ categories:
   - 前端
 tags:
   - 前端
-  - bootstrap
+  - featch
 createTime: 2025/09/04 16:00:00
 permalink: /article/featch流式响应数据/
 ---
