@@ -5,7 +5,7 @@ categories:
   - 前端
 tags:
   - vue3
-  - bootstrap、
+  - bootstrap
 createTime: 2025/08/25 10:20:57
 permalink: /article/Vue3集成bootstrap/
 
