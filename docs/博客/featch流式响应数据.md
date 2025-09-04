@@ -7,7 +7,7 @@ tags:
   - 前端
   - featch
 createTime: 2025/09/04 16:00:00
-permalink: /article/featch流式响应数据/
+permalink: /article/流式响应输出/
 ---
 
 
