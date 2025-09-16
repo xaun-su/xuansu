@@ -1,5 +1,5 @@
 ---
-title: 通讯方式-流式输入、see与websocket的实现
+title: 流式输入、短轮询、长轮询、see与websocket的实现
 date: 2025-9-16
 categories:
   - 前端
@@ -7,11 +7,69 @@ tags:
   - sse
   - websocket
 createTime: 2025/09/16 14:15:12
-permalink: /article/通讯方式-see与websocket的实现/
+permalink: /article/前端通讯方式/
 ---
+
+# 流式输入、短轮询、长轮询、see与websocket的实现
+
+### 一.轮询
+
+**轮询**：**客户端每隔一段时间去问服务器一次**。
+
+**优点：**
+
+- 实现简单，浏览器和服务器全兼容
+- 对实时性要求不高的小场景够用
+
+**缺点：**
+
+- 数据更新了也得等下一次轮询，延迟高
+- 没数据也要发请求，浪费带宽
+- 高并发时服务器压力大
+
+```js
+setInterval(async () => {
+  const res = await fetch('/api/status');
+  const data = await res.json();
+  console.log('最新状态:', data.status);
+}, 5000);
+```
+
+
+
+### 二.长轮询
+
+**客户端发请求，服务器不立即返回，而是等到有数据或者超时才返回**。
+
+优点
+
+- 几乎实时，延迟比普通轮询低很多
+- 兼容性好，比 WebSocket 更“稳”
+
+缺点
+
+- 连接保持时间长，需要考虑服务器超时和资源占用
+- 实现比轮询稍复杂
+
+代码实现
+
+```js
+async function longPoll() {
+  const res = await fetch('/api/long-poll');
+  const data = await res.json();
+  console.log('收到数据:', data);
+  longPoll(); // 收到数据后立刻再发请求
+}
+longPoll()
+```
+
+
+
 
 
 ## 流式输出  sse与websocket的区别
+
+
 
 ### 一.流式输出 (sse和 [featch](./featch流式响应数据.md))
 
@@ -31,11 +89,11 @@ permalink: /article/通讯方式-see与websocket的实现/
 
 `WebSocket` 是**基于独立的 TCP 连接实现**的，使用自定义的协议。客户端和服务器之间可以建立持久的全双工通信的连接，可以双向发送和接收数据。**WebSocket** 协议（ws:// 或 wss://），需要握手升级)是基于帧的，可以通过发送不同类型的帧进行通信。
 
-![image-20250916131758335](C:\Users\chenyt\AppData\Roaming\Typora\typora-user-images\image-20250916131758335.png)
+![image-20250916131758335](./img/image-20250916131758335.png)
 
 `SSE` 是**基于传统的 HTTP 协议**实现的，采用了长轮询（**long-polling**）机制。客户端通过向服务器发送一个 HTTP 请求，服务器保持连接打开并周期性地向客户端发送数据。**SSE** 通过 **EventSource** 对象来实现，在客户端可以通过监听 **onmessage** 事件来接收服务器端发送的数据。
 
-![image-20250916131838069](C:\Users\chenyt\AppData\Roaming\Typora\typora-user-images\image-20250916131838069.png)
+![image-20250916131838069](./img/image-20250916131838069.png)
 
 ### 三.两者的优缺点
 
